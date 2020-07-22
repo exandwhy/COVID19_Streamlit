@@ -8,7 +8,7 @@ from plotly.subplots import make_subplots
 import warnings
 warnings.filterwarnings(action='ignore')
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def get_data():
     url = 'https://api.covid19india.org/csv/latest/state_wise.csv'
     return pd.read_csv(url)
@@ -20,7 +20,7 @@ st.markdown("> and then the whole world walked inside and shut their doors and s
 
 # Status Table
 st.header('\n')
-@st.cache
+@st.cache(allow_output_mutation=True)
 def display_status(df):
     df = df[['State', 'Confirmed', 'Recovered', 'Active', 'Deaths', 'Last_Updated_Time']]
     df.drop([0], axis=0, inplace=True)
@@ -50,7 +50,7 @@ statewise = df.drop([0])
 status = ['Confirmed', 'Active', 'Recovered', 'Deaths']
 option = st.selectbox('', 
                     status)
-@st.cache
+@st.cache(allow_output_mutation=True)
 def display_status(option):
     df = statewise[['State', option]]
     fig = px.pie(df,
@@ -64,7 +64,7 @@ st.plotly_chart(status)
 # Spread Trends
 st.header('Spread Trends')
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def get_trends_data():
     url = 'https://api.covid19india.org/csv/latest/state_wise_daily.csv'
     return pd.read_csv(url)
@@ -130,7 +130,7 @@ if cumulative:
     trends_deceased = trends_deceased.reset_index()
 
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def trends_plot(state, df):
     df = df[['Date', state]]
     if log:
@@ -173,7 +173,7 @@ cmp = st.selectbox('I want to compare', cases)
 state_1 = st.selectbox('in', x)
 state_2 = st.selectbox('and', x)
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def compare(df, state_1, state_2):
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=df['Date'],
@@ -210,7 +210,7 @@ st.plotly_chart(fig_cmp)
 # Testing
 st.header('COVID-19 Testing Status')
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def get_test_data():
     url = 'https://api.covid19india.org/csv/latest/tested_numbers_icmr_data.csv'
     return pd.read_csv(url)
