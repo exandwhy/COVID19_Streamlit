@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import matplotlib
 from plotly.subplots import make_subplots
 import warnings
 warnings.filterwarnings(action='ignore')
